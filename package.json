@@ -1,0 +1,10 @@
+{
+  "name": "akmaludien-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio of Akmaludien Ramadhan",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "author": "Akmaludien Ramadhan",
+  "license": "MIT"
+}

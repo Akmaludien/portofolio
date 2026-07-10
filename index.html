@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akmaludien Ramadhan — Instrumentation Engineer & ML Enthusiast</title>
+  <meta name="description" content="Portfolio of Akmaludien Ramadhan — Instrumentation Engineering student at STMKG, specializing in Machine Learning, Weather Prediction, and IoT systems.">
+  <meta name="author" content="Akmaludien Ramadhan">
+  <meta name="keywords" content="Akmaludien Ramadhan, portfolio, instrumentation engineering, machine learning, weather prediction, IoT, STMKG, Bi-LSTM, climate data">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Akmaludien Ramadhan — Portfolio">
+  <meta property="og:description" content="Instrumentation Engineering Student | Machine Learning Enthusiast | Weather & Climate Data Analyst">
+  <meta property="og:url" content="https://akmaludien.github.io/portofolio">
+  <meta property="og:image" content="https://akmaludien.github.io/portofolio/public/logo.svg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Akmaludien Ramadhan — Portfolio">
+  <meta name="twitter:description" content="Instrumentation Engineering Student | Machine Learning Enthusiast | Weather & Climate Data Analyst">
+
+  <!-- Favicon -->
+  <link rel="icon" href="public/logo.svg" type="image/svg+xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Akmaludien Ramadhan",
+    "url": "https://akmaludien.github.io/portofolio",
+    "jobTitle": "Instrumentation Engineering Student",
+    "worksFor": {
+      "@type": "EducationalOrganization",
+      "name": "Sekolah Tinggi Meteorologi Klimatologi dan Geofisika (STMKG)"
+    },
+    "knowsAbout": ["Machine Learning", "Weather Prediction", "IoT", "Deep Learning", "Climate Data Analysis"]
+  }
+  </script>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <div class="loader-logo">
+        <img src="public/logo.svg" alt="Logo" width="48" height="48">
+      </div>
+      <div class="loader-bar">
+        <div class="loader-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- Particle Background -->
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+  <!-- Gradient Blobs -->
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+
+  <!-- Scroll to Top -->
+  <button id="scroll-top" class="scroll-top" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container nav-container">
+      <a href="#hero" class="nav-logo" aria-label="Home">
+        <img src="public/logo.svg" alt="" width="32" height="32" class="nav-logo-img">
+        <span class="nav-logo-text">akmaludien</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      <ul class="nav-menu" id="nav-menu" role="menubar">
+        <li role="none"><a href="#about" class="nav-link" role="menuitem" data-section="about">About</a></li>
+        <li role="none"><a href="#education" class="nav-link" role="menuitem" data-section="education">Education</a></li>
+        <li role="none"><a href="#skills" class="nav-link" role="menuitem" data-section="skills">Skills</a></li>
+        <li role="none"><a href="#projects" class="nav-link" role="menuitem" data-section="projects">Projects</a></li>
+        <li role="none"><a href="#research" class="nav-link" role="menuitem" data-section="research">Research</a></li>
+        <li role="none"><a href="#experience" class="nav-link" role="menuitem" data-section="experience">Experience</a></li>
+        <li role="none"><a href="#contact" class="nav-link" role="menuitem" data-section="contact">Contact</a></li>
+        <li role="none">
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ==================== HERO ==================== -->
+    <section id="hero" class="hero section">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <p class="section-eyebrow">// welcome</p>
+          <h1 class="hero-name">
+            Akmaludien<br>
+            <span class="hero-name-accent">Ramadhan</span>
+          </h1>
+          <p class="hero-role">
+            <span id="typing-text">Instrumentation Engineering Student</span><span class="typing-cursor">|</span>
+          </p>
+          <p class="hero-desc">
+            Sistem Monitoring & Prediksi Curah Hujan Berbasis IoT dan Deep Learning.
+          </p>
+          <p class="hero-subdesc">
+            I am an Instrumentation Engineering student at STMKG specializing in building intelligent climate platforms with real-time IoT telemetry and Bi-LSTM neural networks.
+          </p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              View Projects
+            </a>
+            <a href="assets/cv.pdf" class="btn btn-secondary" id="download-cv" target="_blank" rel="noopener noreferrer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download CV
+            </a>
+            <a href="#contact" class="btn btn-outline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Contact Me
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-card glass-card">
+              <span class="stat-number" data-target="3">0</span><span class="stat-suffix">+</span>
+              <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-card glass-card">
+              <span class="stat-number" data-target="10">0</span><span class="stat-suffix">+</span>
+              <span class="stat-label">Technologies</span>
+            </div>
+            <div class="stat-card glass-card">
+              <span class="stat-number" data-target="1">0</span>
+              <span class="stat-label">Research</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="code-snippet glass-card">
+            <div class="code-header">
+              <div class="code-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="code-filename">prediction.py</span>
+            </div>
+            <pre class="code-body"><code><span class="code-kw">import</span> <span class="code-cls">tensorflow</span> <span class="code-kw">as</span> tf
+<span class="code-kw">from</span> <span class="code-cls">base_predictor</span> <span class="code-kw">import</span> BasePredictor
+
+<span class="code-cmt"># Modular OOP Bi-LSTM for AWS/AAWS/ARG</span>
+<span class="code-kw">class</span> <span class="code-cls">AWSPredictor</span>(BasePredictor):
+    <span class="code-kw">def</span> <span class="code-fn">__init__</span>(self, station_id):
+        <span class="code-kw">super</span>().<span class="code-fn">__init__</span>(station_id, n_features=<span class="code-num">17</span>)
+        self.model = self.<span class="code-fn">build_bilstm</span>()
+
+    <span class="code-kw">def</span> <span class="code-fn">build_bilstm</span>(self):
+        <span class="code-kw">return</span> tf.keras.Sequential([
+            tf.keras.layers.<span class="code-fn">Bidirectional</span>(
+                tf.keras.layers.<span class="code-fn">LSTM</span>(<span class="code-num">128</span>, return_sequences=<span class="code-kw">True</span>)),
+            tf.keras.layers.<span class="code-fn">Dropout</span>(<span class="code-num">0.2</span>),
+            tf.keras.layers.<span class="code-fn">Dense</span>(<span class="code-num">1</span>)
+        ])</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section id="about" class="about section">
+      <div class="container">
+        <p class="section-eyebrow reveal">// about</p>
+        <h2 class="section-title reveal" data-delay="100">Get to Know Me</h2>
+        <div class="about-grid">
+          <div class="about-image-col reveal" data-delay="200">
+            <div class="about-image-wrapper glass-card">
+              <img src="assets/profile-photo.jpeg" alt="Akmaludien Ramadhan" class="profile-photo" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">
+            </div>
+            <div class="about-focus-tags">
+              <span class="accent-tag">Artificial Intelligence</span>
+              <span class="accent-tag">Deep Learning</span>
+              <span class="accent-tag">Time Series Forecasting</span>
+              <span class="accent-tag">Weather Prediction</span>
+              <span class="accent-tag">IoT Monitoring</span>
+              <span class="accent-tag">Data Engineering</span>
+            </div>
+          </div>
+          <div class="about-text-col reveal" data-delay="300">
+            <p class="about-bio">
+              I am a final-year Instrumentation Engineering student at <strong>Sekolah Tinggi Meteorologi Klimatologi dan Geofisika (STMKG)</strong>. My thesis project focuses on developing a comprehensive Rainfall Monitoring & Prediction System for the West Java region.
+            </p>
+            <p class="about-bio">
+              The platform integrates real-time IoT telemetry via MQTT v5, efficient time-series data management with InfluxDB, and an advanced Artificial Intelligence prediction engine using Bi-LSTM (TensorFlow/Keras). It's built with a robust containerized architecture ready for deployment on Coolify VPS.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EDUCATION ==================== -->
+    <section id="education" class="education section">
+      <div class="container">
+        <p class="section-eyebrow reveal">// education</p>
+        <h2 class="section-title reveal" data-delay="100">Education</h2>
+        <div class="education-card glass-card reveal" data-delay="200">
+          <div class="edu-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/>
+            </svg>
+          </div>
+          <div class="edu-details">
+            <h3 class="edu-institution">Sekolah Tinggi Meteorologi Klimatologi dan Geofisika</h3>
+            <p class="edu-acronym">STMKG</p>
+            <p class="edu-program">Instrumentation Engineering</p>
+            <p class="edu-status">Final-year undergraduate student</p>
+            <div class="edu-tags">
+              <span class="tech-tag">Machine Learning</span>
+              <span class="tech-tag">Signal Processing</span>
+              <span class="tech-tag">Meteorology</span>
+              <span class="tech-tag">Climate Science</span>
+              <span class="tech-tag">Embedded Systems</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <section id="skills" class="skills section">
+      <div class="container">
+        <p class="section-eyebrow reveal">// skills</p>
+        <h2 class="section-title reveal" data-delay="100">Skills & Technologies</h2>
+        <div class="skills-grid">
+          <div class="skill-category glass-card reveal" data-delay="150">
+            <h3 class="skill-cat-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              Machine Learning
+            </h3>
+            <div class="skill-tags">
+              <span class="tech-tag">Python 3.11</span>
+              <span class="tech-tag">TensorFlow 2.20</span>
+              <span class="tech-tag">Keras</span>
+              <span class="tech-tag">Bi-LSTM</span>
+              <span class="tech-tag">Pandas</span>
+              <span class="tech-tag">NumPy</span>
+            </div>
+          </div>
+          <div class="skill-category glass-card reveal" data-delay="200">
+            <h3 class="skill-cat-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Frontend & Data Viz
+            </h3>
+            <div class="skill-tags">
+              <span class="tech-tag">Vanilla JS</span>
+              <span class="tech-tag">HTML5 / CSS3</span>
+              <span class="tech-tag">Chart.js</span>
+              <span class="tech-tag">Leaflet.js</span>
+            </div>
+          </div>
+          <div class="skill-category glass-card reveal" data-delay="250">
+            <h3 class="skill-cat-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              Backend & Database
+            </h3>
+            <div class="skill-tags">
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Express.js (MVC)</span>
+              <span class="tech-tag">InfluxDB</span>
+              <span class="tech-tag">SQLite</span>
+            </div>
+          </div>
+          <div class="skill-category glass-card reveal" data-delay="300">
+            <h3 class="skill-cat-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              IoT & Deployment
+            </h3>
+            <div class="skill-tags">
+              <span class="tech-tag">MQTT v5</span>
+              <span class="tech-tag">WebSocket</span>
+              <span class="tech-tag">Docker</span>
+              <span class="tech-tag">Coolify VPS</span>
+            </div>
+          </div>
+          <div class="skill-category glass-card reveal" data-delay="350">
+            <h3 class="skill-cat-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
+              Methodology
+            </h3>
+            <div class="skill-tags">
+              <span class="tech-tag">Modular OOP</span>
+              <span class="tech-tag">Feature Engineering</span>
+              <span class="tech-tag">Data Evaluation</span>
+            </div>
+          </div>
+          <div class="skill-category glass-card reveal" data-delay="400">
+            <h3 class="skill-cat-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/></svg>
+              Hardware
+            </h3>
+            <div class="skill-tags">
+              <span class="tech-tag">AWS Sensors</span>
+              <span class="tech-tag">ARG Sensors</span>
+              <span class="tech-tag">AAWS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PROJECTS ==================== -->
+    <section id="projects" class="projects section">
+      <div class="container">
+        <p class="section-eyebrow reveal">// projects</p>
+        <h2 class="section-title reveal" data-delay="100">Featured Projects</h2>
+        <div class="projects-grid">
+          <!-- Project 1: Featured -->
+          <div class="project-card glass-card featured reveal" data-delay="200">
+            <div class="project-image">
+              <div class="project-img-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5">
+                  <path d="M12 2v6M12 18v4M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M18 12h4M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"/>
+                </svg>
+              </div>
+              <span class="project-badge">Featured</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">Sistem Monitoring & Prediksi Curah Hujan Jawa Barat</h3>
+              <p class="project-desc">A real-time IoT weather monitoring platform integrated with a Deep Learning (Bi-LSTM) prediction engine for BMKG observation networks in West Java.</p>
+              <ul class="project-features">
+                <li>Real-time IoT Telemetry via MQTT v5</li>
+                <li>Time-Series Database with InfluxDB</li>
+                <li>Modular OOP Bi-LSTM Prediction (7-day forecast)</li>
+                <li>Interactive Dashboard with Leaflet.js</li>
+                <li>Docker & Coolify Ready Deployment</li>
+              </ul>
+              <div class="project-tech">
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">TensorFlow</span>
+                <span class="tech-tag">InfluxDB</span>
+                <span class="tech-tag">MQTT</span>
+                <span class="tech-tag">Docker</span>
+              </div>
+              <div class="project-metrics glass-card">
+                <p class="metrics-label">Model Evaluation Metrics</p>
+                <p class="metrics-note">RMSE, MAE, R², POD, FAR, CSI evaluated in real-time</p>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/Akmaludien/skripsi" class="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer" aria-label="View source code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Code
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card glass-card reveal" data-delay="300">
+            <div class="project-image">
+              <div class="project-img-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5">
+                  <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/></svg>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">IoT Weather Monitoring</h3>
+              <p class="project-desc">Real-time weather monitoring platform using environmental sensors connected to a web dashboard via MQTT protocol.</p>
+              <div class="project-tech">
+                <span class="tech-tag">ESP32</span>
+                <span class="tech-tag">MQTT</span>
+                <span class="tech-tag">Flask</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/Akmaludien" class="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer" aria-label="View source code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Code
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="project-card glass-card reveal" data-delay="400">
+            <div class="project-image">
+              <div class="project-img-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5">
+                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">Climate Data Dashboard</h3>
+              <p class="project-desc">Interactive dashboard for rainfall, temperature, humidity, and climate analysis with real-time data visualization.</p>
+              <div class="project-tech">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Plotly</span>
+                <span class="tech-tag">Dash</span>
+                <span class="tech-tag">Pandas</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/Akmaludien" class="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer" aria-label="View source code">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Code
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== RESEARCH ==================== -->
+    <section id="research" class="research section">
+      <div class="container">
+        <p class="section-eyebrow reveal">// research</p>
+        <h2 class="section-title reveal" data-delay="100">Research</h2>
+        <div class="research-card glass-card reveal" data-delay="200">
+          <div class="research-badge">Undergraduate Thesis</div>
+          <h3 class="research-title">Sistem Monitoring & Prediksi Curah Hujan Jawa Barat</h3>
+          <p class="research-desc">Developed specifically for STMKG Final Year Project. An intelligent real-time IoT weather monitoring platform integrated with a Deep Learning (Bi-LSTM) prediction engine. The AI uses a Modular OOP approach with dynamic feature engineering (AWS 17 features, AAWS 10, ARG 1) and an Adaptive Seasonal Filter to suppress over-prediction during the dry season. Built with Node.js, Python, InfluxDB, and deployed via Docker on Coolify.</p>
+          <div class="research-tags">
+            <span class="accent-tag">Deep Learning</span>
+            <span class="accent-tag">Bi-LSTM</span>
+            <span class="accent-tag">IoT Telemetry</span>
+            <span class="accent-tag">Time Series</span>
+            <span class="accent-tag">Meteorology</span>
+          </div>
+        </div>
+
+        <div class="research-card glass-card reveal" data-delay="300" style="margin-top: 2rem;">
+          <div class="research-badge">Published Paper</div>
+          <h3 class="research-title">Air Quality Prediction System Using Telegram Bot Based on Real-Time Data</h3>
+          <p class="research-desc">Published in Journal of Computation Physics and Earth Science (JoCPES), Vol. 3, No. 1 (2023). This research focuses on developing a system that utilizes a Telegram bot to provide real-time air quality information and 5-day forecasts to improve public access to environmental data in Indonesia. The system integrates real-time data using the OpenWeatherMap API and employs a Linear Regression-based machine learning model to generate air quality projections.</p>
+          <div class="research-tags">
+            <span class="accent-tag">Air Quality Prediction</span>
+            <span class="accent-tag">Telegram Bot</span>
+            <span class="accent-tag">Real-Time Data</span>
+            <span class="accent-tag">Linear Regression</span>
+            <span class="accent-tag">Machine Learning</span>
+          </div>
+          <a href="https://physan.org" class="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer" style="margin-top: 1.5rem;">
+            Read Publication
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EXPERIENCE ==================== -->
+    <section id="experience" class="experience section">
+      <div class="container">
+        <p class="section-eyebrow reveal">// experience</p>
+        <h2 class="section-title reveal" data-delay="100">Experience</h2>
+        <p class="section-subtitle reveal" data-delay="150">Timeline will be updated with verified experiences.</p>
+        <div class="timeline">
+          <div class="timeline-line" aria-hidden="true"></div>
+
+          <div class="timeline-item reveal" data-delay="200">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-card glass-card">
+              <span class="timeline-date">Coming soon</span>
+              <h3 class="timeline-title">Academic Research</h3>
+              <p class="timeline-desc">Details will be added once verified.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-delay="300">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-card glass-card">
+              <span class="timeline-date">Coming soon</span>
+              <h3 class="timeline-title">Teaching Assistant / Tutoring</h3>
+              <p class="timeline-desc">Details will be added once verified.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-delay="400">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-card glass-card">
+              <span class="timeline-date">Coming soon</span>
+              <h3 class="timeline-title">Organization</h3>
+              <p class="timeline-desc">Details will be added once verified.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" data-delay="500">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-card glass-card">
+              <span class="timeline-date">Coming soon</span>
+              <h3 class="timeline-title">Internship</h3>
+              <p class="timeline-desc">Details will be added once verified.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CERTIFICATES ==================== -->
+    <section id="certificates" class="certificates section">
+      <div class="container">
+        <p class="section-eyebrow reveal">// certificates</p>
+        <h2 class="section-title reveal" data-delay="100">Certificates</h2>
+        <div class="certificates-grid">
+          <a href="assets/CCNA-_Introduction_to_Networks_certificate_ramadhanakmaludien-gmail-com_11cf413e-9048-468d-8d0b-cf0fcee5dff4.pdf" target="_blank" rel="noopener noreferrer" class="certificate-card glass-card reveal" data-delay="200" style="display: block; text-decoration: none;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="margin-bottom: 1rem;">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--color-text);">CCNA: Introduction to Networks</h3>
+            <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 0.25rem;">Cisco Networking Academy</p>
+            <p style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--color-text-muted); margin-top: 1rem;">View Certificate ↗</p>
+          </a>
+          <a href="assets/_certificate_ramadhanakmaludien-gmail-com_d55ffe97-eb88-4d2d-8cc4-a0cb3027e0da.pdf" target="_blank" rel="noopener noreferrer" class="certificate-card glass-card reveal" data-delay="300" style="display: block; text-decoration: none;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="margin-bottom: 1rem;">
+              <circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+            </svg>
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--color-text);">Professional Certificate</h3>
+            <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 0.25rem;">Technology Certification</p>
+            <p style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--color-text-muted); margin-top: 1rem;">View Certificate ↗</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="contact section">
+      <div class="container">
+        <p class="section-eyebrow reveal">// contact</p>
+        <h2 class="section-title reveal" data-delay="100">Get In Touch</h2>
+        <p class="section-subtitle reveal" data-delay="150">I'm always open to discussing new projects, creative ideas, or opportunities.</p>
+        <div class="contact-grid">
+          <div class="contact-links reveal" data-delay="200">
+            <a href="mailto:ramadhanakmaludien@gmail.com" class="contact-link-card" aria-label="Send email">
+              <div class="contact-link-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div class="contact-link-text">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">ramadhanakmaludien@gmail.com</span>
+              </div>
+            </a>
+            <a href="https://github.com/Akmaludien" class="contact-link-card" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
+              <div class="contact-link-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                </svg>
+              </div>
+              <div class="contact-link-text">
+                <span class="contact-label">GitHub</span>
+                <span class="contact-value">github.com/Akmaludien</span>
+              </div>
+            </a>
+            <a href="https://linkedin.com/in/akmaludienramadhan" class="contact-link-card" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
+              <div class="contact-link-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                </svg>
+              </div>
+              <div class="contact-link-text">
+                <span class="contact-label">LinkedIn</span>
+                <span class="contact-value">Akmaludien Ramadhan</span>
+              </div>
+            </a>
+            <a href="https://instagram.com/akmaldnrmdhn" class="contact-link-card" target="_blank" rel="noopener noreferrer" aria-label="Visit Instagram profile">
+              <div class="contact-link-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+              </div>
+              <div class="contact-link-text">
+                <span class="contact-label">Instagram</span>
+                <span class="contact-value">@akmaldnrmdhn</span>
+              </div>
+            </a>
+          </div>
+          <div class="contact-form-card reveal" data-delay="300">
+            <form id="contact-form" class="contact-form">
+              <h3 class="form-title">Send a Message</h3>
+              <div class="form-group">
+                <label for="contact-name" class="form-label">Name</label>
+                <input type="text" id="contact-name" class="form-input" name="name" placeholder="Your name" required>
+              </div>
+              <div class="form-group">
+                <label for="contact-email" class="form-label">Email</label>
+                <input type="email" id="contact-email" class="form-input" name="email" placeholder="your@email.com" required>
+              </div>
+              <div class="form-group">
+                <label for="contact-subject" class="form-label">Subject</label>
+                <input type="text" id="contact-subject" class="form-input" name="subject" placeholder="Project collaboration">
+              </div>
+              <div class="form-group">
+                <label for="contact-message" class="form-label">Message</label>
+                <textarea id="contact-message" class="form-input form-textarea" name="message" placeholder="Hello, I would like to..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full" id="contact-submit">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="public/logo.svg" alt="" width="24" height="24">
+          <span>akmaludien</span>
+        </div>
+        <p class="footer-text">&copy; 2026 Akmaludien Ramadhan. Built with passion for AI & Climate Technology.</p>
+        <div class="footer-links">
+          <a href="#hero" class="footer-link">Home</a>
+          <a href="#about" class="footer-link">About</a>
+          <a href="#projects" class="footer-link">Projects</a>
+          <a href="#contact" class="footer-link">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
