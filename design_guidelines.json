@@ -1,0 +1,119 @@
+{
+  "theme": {
+    "mode": "system",
+    "supported_modes": ["dark", "light"],
+    "toggle_requirement": "Mandatory accessible toggle switch for recruiter preference"
+  },
+  "colors": {
+    "brand": {
+      "primary": "#0A192F",
+      "accent": "#64FFDA"
+    },
+    "dark": {
+      "background": "#060A11",
+      "surface": "#0A121E",
+      "surface_glass": "rgba(10, 18, 30, 0.7)",
+      "text_primary": "#E2E8F0",
+      "text_secondary": "#94A3B8",
+      "border": "rgba(100, 255, 218, 0.15)",
+      "accent_glow": "rgba(100, 255, 218, 0.1)"
+    },
+    "light": {
+      "background": "#F8FAFC",
+      "surface": "#FFFFFF",
+      "surface_glass": "rgba(255, 255, 255, 0.8)",
+      "text_primary": "#0F172A",
+      "text_secondary": "#475569",
+      "border": "rgba(10, 25, 47, 0.1)",
+      "accent_glow": "rgba(0, 163, 163, 0.1)"
+    }
+  },
+  "typography": {
+    "heading_font": "JetBrains Mono, monospace",
+    "body_font": "IBM Plex Sans, sans-serif",
+    "scales": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none font-bold",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight",
+      "h3": "text-xl sm:text-2xl",
+      "h4": "text-lg sm:text-xl",
+      "body": "text-base sm:text-sm leading-relaxed",
+      "labels": "text-xs tracking-[0.2em] uppercase font-mono"
+    },
+    "pairing_archetype": "The 'Developer UI' - Mono Headings with Sterile Sans Body for an engineering-first, factual feel."
+  },
+  "visual_enhancers": {
+    "textures": "Subtle noise overlay on dark mode to eliminate digital flatness.",
+    "borders": "1px delicate inner stroke on cards. Use border-collapse for technical grids.",
+    "glassmorphism": "backdrop-blur-xl with explicit borders. Never use pure transparent backgrounds for text-bearing overlays."
+  },
+  "grids_and_layouts": {
+    "spacing_system": "Generous spacing. Use p-8 to p-16 for main sections. Internal padding in bordered containers must be p-6 or p-8.",
+    "grid_modes": {
+      "bento_marketing": "grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-8 with asymmetric spans.",
+      "dense_data": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 for timeline, research, and credential cards."
+    },
+    "alignment": "Left-align paragraphs, inputs, dense content. Mobile-first grids. Grid items must be direct children."
+  },
+  "components": {
+    "navigation": "Visible navbar with Brand Name + key links (Home, Projects, Research, Contact). Sticky with backdrop-blur-xl.",
+    "hero_section": "Recruiter-focused, zero fluff. Highlight Machine Learning, Climate Intelligence, IoT Telemetry, Environmental Data Analytics. Left aligned.",
+    "project_cards": "Exactly two flagship projects (Rainfall Monitoring, SKD Learning Platform). Cardless sharp edges or max 8px border-radius.",
+    "research_center": "Dense bento grid layout to showcase verified factual content, publications, or research outcomes.",
+    "contact_form": "FastAPI + Resend integration without message storage. Uses customized shadcn/ui form elements.",
+    "component_libraries": "lucide-react for icons. shadcn/ui primitives. Framer Motion for animations."
+  },
+  "motion": {
+    "philosophy": "Restrained motion. Focus on micro-interactions over decorative flourishes.",
+    "rules": [
+      "Must implement prefers-reduced-motion media query logic.",
+      "Use opacity and subtle transforms (-translate-y-1) for hovers.",
+      "No universal transitions (avoid 'transition-all'). Target specific properties."
+    ]
+  },
+  "accessibility": {
+    "contrast": "APCA and WCAG AA compliant. Minimum 4.5:1 for normal text.",
+    "focus_states": "High contrast ring focus (e.g., focus:ring-2 focus:ring-cyan-500).",
+    "testing": "All interactive/key elements MUST include data-testid attribute in kebab-case (e.g., 'contact-submit-button')."
+  },
+  "media": {
+    "images": [
+      {
+        "category": "Hero/Background Texture",
+        "url": "https://images.unsplash.com/photo-1644088379091-d574269d422f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MjJ8MHwxfHNlYXJjaHwzfHxkYXRhJTIwZ3JhcGglMjBhbmFseXRpY3N8ZW58MHx8fHwxNzgzODAwNzE3fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract data graph analytics network background"
+      },
+      {
+        "category": "Rainfall Monitoring Project",
+        "url": "https://images.unsplash.com/photo-1527766833261-b09c3163a791?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwyfHxoZWF2eSUyMHJhaW4lMjBkYXJrfGVufDB8fHx8MTc4MzgwMDcxN3ww&ixlib=rb-4.1.0&q=85",
+        "description": "Heavy rain water droplets on dark surface"
+      },
+      {
+        "category": "IoT Telemetry / SKD Learning",
+        "url": "https://images.unsplash.com/photo-1592659762303-90081d34b277?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MjJ8MHwxfHNlYXJjaHwyfHxjaXJjdWl0JTIwYm9hcmQlMjBkYXJrfGVufDB8fHx8MTc4MzgwMDcxN3ww&ixlib=rb-4.1.0&q=85",
+        "description": "Dark blue close-up of a high-tech circuit board"
+      }
+    ],
+    "image_constraints": "Mobile height max 80vh. Do not use generic placeholders. Use provided images or workspace evidence only."
+  },
+  "routing": {
+    "rules": [
+      "Use /portfolio as the base route.",
+      "Create redirect logic mapping legacy /portofolio to /portfolio."
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Build standard React (.jsx/.js) files. DO NOT use TypeScript (.tsx/.ts).",
+    "Implement the recruiter-focused layout first: high density, clear facts, no fluff.",
+    "Implement shadcn/ui carefully without standardizing the 'Vercel look' entirely. Modify borders to fit the Navy/Cyan dark tech aesthetic.",
+    "Enforce exactly two flagship projects constraint.",
+    "Integrate FastAPI with Resend for the contact form, ensuring it does NOT persist messages.",
+    "Ensure 'data-testid' is attached to all buttons, links, and forms."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not converge to 'AI slop'. Use deep contrasts, sharp elements, and purposeful asymmetry.",
+    "Never use dark colors as gradients.",
+    "Do not center-align app containers (no '.App { text-align: center; }').",
+    "Never use emoji characters for icons. Stick to lucide-react.",
+    "Omit any unavailable section entirely. Never show placeholder data or 'Coming soon'."
+  ]
+}
