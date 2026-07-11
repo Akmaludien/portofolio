@@ -20,7 +20,10 @@ export const SiteHeader = () => {
   return (
     <header className="site-header" data-testid="site-header">
       <div className="header-inner">
-        <Link className="brand" to="/portfolio" data-testid="brand-home-link"><span>AR</span><strong>Akmaludien Ramadhan</strong></Link>
+        <Link className="brand" to="/portfolio" aria-label="Akmaludien Ramadhan portfolio home" data-testid="brand-home-link">
+          <span className="brand-mark" aria-hidden="true"><b>A</b><b>R</b></span>
+          <span className="brand-copy"><strong>Akmaludien Ramadhan</strong><small>ML · Climate Systems</small></span>
+        </Link>
         <nav className="desktop-nav" aria-label="Primary" data-testid="desktop-navigation">
           {navItems.map((item) => <Link key={item.label} to={item.to} aria-current={pathname === item.to ? "page" : undefined} data-testid={`desktop-${item.label.toLowerCase()}-link`}>{item.label}</Link>)}
         </nav>
