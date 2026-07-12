@@ -13,7 +13,8 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
-    "paths": {"@/*": ["*"]}
+    "paths": {"@/*": ["*"]},
+    "types": ["vite/client"]
   },
   "include": ["src"]
 }

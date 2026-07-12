@@ -1,16 +1,253 @@
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { ArrowLeft, LoaderCircle, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 import { usePageMeta } from "@/hooks/usePageMeta";
 
-type FormState = { name: string; email: string; organization: string; message: string; website: string; consent: boolean };
-const initialForm: FormState = { name: "", email: "", organization: "", message: "", website: "", consent: false };
+type FormState = {
+  name: string;
+  email: string;
+  organization: string;
+  message: string;
+  website: string;
+  consent: boolean;
+};
+
+const initialForm: FormState = {
+  name: "",
+  email: "",
+  organization: "",
+  message: "",
+  website: "",
+  consent: false,
+};
+
 export default function ContactPage() {
-  const [form, setForm] = useState(initialForm); const [sending, setSending] = useState(false); const [status, setStatus] = useState<{ type: "success" | "error"; text: string } | null>(null);
-  usePageMeta("Contact | Akmaludien Ramadhan", "Contact Akmaludien Ramadhan about machine learning, climate intelligence, IoT telemetry, and environmental data work.");
-  const submit = async (event: FormEvent) => { event.preventDefault(); setSending(true); setStatus(null); try { const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) }); const body = await response.json(); if (!response.ok) throw new Error(body.detail || "Delivery could not be accepted."); setStatus({ type: "success", text: body.message }); setForm(initialForm); } catch (error) { setStatus({ type: "error", text: error instanceof Error ? error.message : "Delivery could not be accepted." }); } finally { setSending(false); } };
-  const update = (field: keyof FormState, value: string | boolean) => setForm((current) => ({ ...current, [field]: value }));
-  return <section className="contact-page" data-testid="contact-page"><div className="contact-intro"><Link className="back-link" to="/portfolio" data-testid="contact-back-link"><ArrowLeft aria-hidden="true" /> Portfolio</Link><p className="eyebrow" data-testid="contact-eyebrow">Direct inquiry</p><h1 data-testid="contact-heading">Start with the problem you’re working on.</h1><p data-testid="contact-summary">For roles, research collaboration, or engineering discussions across ML, climate, IoT, and environmental data.</p><div className="privacy-note" data-testid="contact-privacy-note"><strong>No message storage.</strong><span>The form sends your inquiry for delivery and does not save it to a portfolio database.</span></div></div>
-    <form className="contact-form" onSubmit={submit} data-testid="contact-form"><div className="field"><label htmlFor="name" data-testid="contact-name-label">Name</label><input id="name" required minLength={2} maxLength={80} value={form.name} onChange={(e) => update("name", e.target.value)} data-testid="contact-name-input" /></div><div className="field"><label htmlFor="email" data-testid="contact-email-label">Email</label><input id="email" type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} data-testid="contact-email-input" /></div><div className="field"><label htmlFor="organization" data-testid="contact-organization-label">Organization <span>Optional</span></label><input id="organization" maxLength={120} value={form.organization} onChange={(e) => update("organization", e.target.value)} data-testid="contact-organization-input" /></div><div className="field"><label htmlFor="message" data-testid="contact-message-label">Message</label><textarea id="message" required minLength={20} maxLength={3000} rows={7} value={form.message} onChange={(e) => update("message", e.target.value)} data-testid="contact-message-input" /></div><div className="honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => update("website", e.target.value)} data-testid="contact-website-input" /></div><label className="consent" data-testid="contact-consent-label"><input type="checkbox" required checked={form.consent} onChange={(e) => update("consent", e.target.checked)} data-testid="contact-consent-checkbox" /><span>I consent to this information being used to respond to my inquiry.</span></label>{status && <div role="status" className={`form-status ${status.type}`} data-testid={`contact-${status.type}-message`}>{status.text}</div>}<button type="submit" disabled={sending} className="submit-button" data-testid="contact-submit-button">{sending ? <LoaderCircle className="spin" aria-hidden="true" /> : <Send aria-hidden="true" />}{sending ? "Sending" : "Send inquiry"}</button></form>
-  </section>;
+  const [form, setForm] = useState(initialForm);
+  const [sending, setSending] = useState(false);
+  const [isServiceAvailable, setIsServiceAvailable] = useState<boolean | null>(
+    null,
+  );
+  const [status, setStatus] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
+  usePageMeta(
+    "Contact | Akmaludien Ramadhan",
+    "Contact Akmaludien Ramadhan about machine learning, climate intelligence, IoT telemetry, and environmental data work.",
+  );
+
+  useEffect(() => {
+    const checkStatus = async () => {
+      try {
+        const backendUrl =
+          import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+        const response = await fetch(`${backendUrl}/api/contact/status`);
+        if (response.ok) {
+          const data = await response.json();
+          setIsServiceAvailable(data.available);
+          if (!data.available) {
+            setStatus({
+              type: "error",
+              text: "Contact service is currently unavailable. Please reach out via LinkedIn.",
+            });
+          }
+        }
+      } catch (e) {
+        setIsServiceAvailable(false);
+        setStatus({
+          type: "error",
+          text: "Contact service is currently unreachable.",
+        });
+      }
+    };
+    checkStatus();
+  }, []);
+
+  const submit = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!isServiceAvailable) return;
+
+    setSending(true);
+    setStatus(null);
+    try {
+      const backendUrl =
+        import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+      const response = await fetch(`${backendUrl}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const body = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        let errorDetail = body.detail || "Failed to send message.";
+        if (Array.isArray(errorDetail)) {
+          errorDetail = errorDetail.map((err: any) => err.msg).join(", ");
+        }
+        throw new Error(errorDetail);
+      }
+
+      setStatus({ type: "success", text: body.message });
+      setForm(initialForm);
+    } catch (error) {
+      setStatus({
+        type: "error",
+        text:
+          error instanceof Error
+            ? error.message
+            : "Delivery could not be accepted.",
+      });
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const update = (field: keyof FormState, value: string | boolean) =>
+    setForm((current) => ({ ...current, [field]: value }));
+
+  return (
+    <section className="contact-page" data-testid="contact-page">
+      <div className="contact-intro">
+        <Link
+          className="back-link"
+          to="/portfolio"
+          data-testid="contact-back-link"
+        >
+          <ArrowLeft aria-hidden="true" /> Portfolio
+        </Link>
+        <p className="eyebrow" data-testid="contact-eyebrow">
+          Direct inquiry
+        </p>
+        <h1 data-testid="contact-heading">
+          Start with the problem you’re working on.
+        </h1>
+        <p data-testid="contact-summary">
+          For roles, research collaboration, or engineering discussions across
+          ML, climate, IoT, and environmental data.
+        </p>
+        <div className="privacy-note" data-testid="contact-privacy-note">
+          <strong>No message storage.</strong>
+          <span>
+            The form sends your inquiry for delivery and does not save it to a
+            portfolio database.
+          </span>
+        </div>
+      </div>
+      <form
+        className="contact-form"
+        onSubmit={submit}
+        data-testid="contact-form"
+      >
+        <div className="field">
+          <label htmlFor="name" data-testid="contact-name-label">
+            Name
+          </label>
+          <input
+            id="name"
+            required
+            minLength={2}
+            maxLength={80}
+            value={form.name}
+            onChange={(e) => update("name", e.target.value)}
+            disabled={isServiceAvailable === false}
+            data-testid="contact-name-input"
+          />
+        </div>
+        <div className="field">
+          <label htmlFor="email" data-testid="contact-email-label">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            value={form.email}
+            onChange={(e) => update("email", e.target.value)}
+            disabled={isServiceAvailable === false}
+            data-testid="contact-email-input"
+          />
+        </div>
+        <div className="field">
+          <label
+            htmlFor="organization"
+            data-testid="contact-organization-label"
+          >
+            Organization <span>Optional</span>
+          </label>
+          <input
+            id="organization"
+            maxLength={120}
+            value={form.organization}
+            onChange={(e) => update("organization", e.target.value)}
+            disabled={isServiceAvailable === false}
+            data-testid="contact-organization-input"
+          />
+        </div>
+        <div className="field">
+          <label htmlFor="message" data-testid="contact-message-label">
+            Message
+          </label>
+          <textarea
+            id="message"
+            required
+            minLength={20}
+            maxLength={3000}
+            rows={7}
+            value={form.message}
+            onChange={(e) => update("message", e.target.value)}
+            disabled={isServiceAvailable === false}
+            data-testid="contact-message-input"
+          />
+        </div>
+        <div className="honeypot">
+          <label htmlFor="website">Website</label>
+          <input
+            id="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={form.website}
+            onChange={(e) => update("website", e.target.value)}
+            disabled={isServiceAvailable === false}
+            data-testid="contact-website-input"
+          />
+        </div>
+        <label className="consent" data-testid="contact-consent-label">
+          <input
+            type="checkbox"
+            required
+            checked={form.consent}
+            onChange={(e) => update("consent", e.target.checked)}
+            disabled={isServiceAvailable === false}
+            data-testid="contact-consent-checkbox"
+          />
+          <span>
+            I consent to this information being used to respond to my inquiry.
+          </span>
+        </label>
+        {status && (
+          <div
+            role="status"
+            className={`form-status ${status.type}`}
+            data-testid={`contact-${status.type}-message`}
+          >
+            {status.text}
+          </div>
+        )}
+        <button
+          type="submit"
+          disabled={sending || isServiceAvailable === false}
+          className="submit-button"
+          data-testid="contact-submit-button"
+        >
+          {sending ? (
+            <LoaderCircle className="spin" aria-hidden="true" />
+          ) : (
+            <Send aria-hidden="true" />
+          )}
+          {sending ? "Sending" : "Send inquiry"}
+        </button>
+      </form>
+    </section>
+  );
 }

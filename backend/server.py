@@ -161,10 +161,13 @@ async def submit_contact(
 
 
 app.include_router(api_router)
+origins_env = os.environ.get("CORS_ORIGINS", "")
+origins = [origin.strip() for origin in origins_env.split(",")] if origins_env else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=origins,
     allow_credentials=True,
-    allow_origins=os.environ.get("CORS_ORIGINS", "").split(","),
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
